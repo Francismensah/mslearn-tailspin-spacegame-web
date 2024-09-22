@@ -1,7 +1,5 @@
 trigger:
-  branches:
-    include:
-      - '*'
+- '*'
 
 pool:
   name: 'Default'
@@ -21,14 +19,11 @@ steps:
   inputs:
     verbose: false
 
-- script: 'npm rebuild node-sass'
-  displayName: 'Rebuild node-sass for current Node.js version'
-
 - script: './node_modules/.bin/node-sass Tailspin.SpaceGame.Web/wwwroot --output Tailspin.SpaceGame.Web/wwwroot'
   displayName: 'Compile Sass assets'
 
 - task: gulp@1
-  displayName: 'Run gulp tasks!!!'
+  displayName: 'Run gulp tasks'
 
 - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
   displayName: 'Write build info'
@@ -44,5 +39,8 @@ steps:
   displayName: 'Build the project - Release'
   inputs:
     command: 'build'
-    arguments: '--no-restore --configuration $(buildConfiguration)'
+    arguments: '--no-restore --configuration Release'
     projects: '**/*.csproj'
+
+
+
